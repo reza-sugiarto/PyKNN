@@ -58,7 +58,7 @@ class pyknn():
     This is KNN algorithm implemented in python
     
     This algorithm using euclidean distance to calculate distance.
-    You can change on Distance Calculation Section. 
+    You can change distance algorithm on Distance Calculation Section. 
     
     
     ps: I know this a little slow. Help me to make it faster.
@@ -72,12 +72,12 @@ class pyknn():
         self.n=n
         
     #Distance Calculation
-    def euclid_dist(self,data_ts,data_tr):
-        self.data_ts=data_ts
-        self.data_tr=data_tr
+    def euclid_dist(self,data_test,data_train):
+        self.data_test=data_test
+        self.data_train=data_train
         dist=0
-        for i in range(len(data_tr)):
-            dist+=pow((data_ts[i]-data_tr[i]),2)
+        for i in range(len(data_train)):
+            dist+=pow((data_test[i]-data_train[i]),2)
         return sqrt(dist)
     
     #Checking Neighbor
@@ -85,7 +85,7 @@ class pyknn():
         self.data_test=data_test
         check_dist={}
         for i in range(self.train_data.shape[0]):
-            dist=self.euclid_dist(self.train_data.iloc[i],data_test)
+            dist=self.euclid_dist(data_test,self.train_data.iloc[i])
             ground_label=self.train_label.iloc[i][0] #check your y_train shape and choose manually which suitable. Cheers!
             #ground_label=label_train.iloc[i]
             check_dist.update({dist:ground_label})
